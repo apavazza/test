@@ -8,11 +8,7 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -22,20 +18,13 @@ jobs:
         run: make
 
       - name: Rename
-        run: |
-          if [ ${{ matrix.os }} == 'ubuntu-latest' ]; then
-            mv program program-linux_x64-${{ github.ref_name }}
-          elif [ ${{ matrix.os }} == 'windows-latest' ]; then
-            rename program program-win_x64-${{ github.ref_name }}
-          elif [ ${{ matrix.os }} == 'macos-latest' ]; then
-            mv program program-macos_x64-${{ github.ref_name }}
-          fi
+        run: mv program program-linux_x64-${{ github.ref_name }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4.0.0
         with:
           name: program
-          path: ./
+          path: ./program-linux_x64*
           retention-days: 1
 
   create_release:
