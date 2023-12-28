@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v4.0.0
         with:
           name: program
-          path: ./program_linux_x64*
+          path: ./program-linux_x64*
           retention-days: 1
         
   create_release:
