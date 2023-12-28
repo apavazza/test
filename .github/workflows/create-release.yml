@@ -18,12 +18,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4.1.1
 
+      - name: Install make on Windows
+        if: matrix.os == 'windows-latest'
+        run: winget install GnuWin32.Make
+
       - name: Build
-        run: |
-          if [ ${{ matrix.os }} == 'windows-latest' ]; then
-            winget install GnuWin32.Make
-          fi
-          make
+        run: make
 
       - name: Rename
         run: |
