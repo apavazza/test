@@ -16,8 +16,12 @@ jobs:
 
       - name: Build
         run: make
+  
+  create_release:
+    name: Create Release
+    runs-on: ubuntu-latest
 
-      - name: Create Release
+      steps:
         id: create_release
         uses: ncipollo/release-action@v1.13.0
         env:
@@ -28,3 +32,16 @@ jobs:
           draft: true
           prerelease: false
           artifacts: "program"
+
+  upload_artifacts:
+    name: Upload artifacts
+    runs-on: ubuntu-latest
+
+      steps:
+        id: upload_artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: program
+          path: ./program
+
+
