@@ -31,7 +31,6 @@ jobs:
 
       - name: Upload Release Asset
         id: upload-release-asset
-        needs: build
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
