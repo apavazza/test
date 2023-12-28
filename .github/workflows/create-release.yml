@@ -27,4 +27,15 @@ jobs:
           name: Release ${{ github.ref }}
           draft: true
           prerelease: false
-          artifacts: "program"
+
+  upload:
+    name: Upload artefacts
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: program
+          path: ./
+      
