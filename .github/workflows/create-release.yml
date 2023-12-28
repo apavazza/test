@@ -8,23 +8,38 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.1.1
 
       - name: Build
-        run: make
+        run: |
+          if [ ${{ matrix.os }} == 'windows-latest' ]; then
+            winget install GnuWin32.Make
+          fi
+          make
 
       - name: Rename
-        run: mv program program-linux_x64-${{ github.ref_name }}
+        run: |
+          if [ ${{ matrix.os }} == 'ubuntu-latest' ]; then
+            mv program program-linux_x64-${{ github.ref_name }}
+          elif [ ${{ matrix.os }} == 'windows-latest' ]; then
+            rename program program-win_x64-${{ github.ref_name }}
+          elif [ ${{ matrix.os }} == 'macos-latest' ]; then
+            mv program program-macos_x64-${{ github.ref_name }}
+          fi
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4.0.0
         with:
-          name: program
-          path: ./program-linux_x64*
+          name: program-${{ matrix.os }}
+          path: ./
           retention-days: 1
 
   create_release:
@@ -36,7 +51,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4.1.0
         with:
-          name: program
+          merge-multiple: true
 
       - name: Create Release
         id: create_release
