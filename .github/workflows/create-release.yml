@@ -34,8 +34,9 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4.1.0
         with:
-          name: program
-          path: ./
+          path: my-artifact
+          pattern: program_linux_x64*
+          merge-multiple: true
     
       - name: Create Release
         id: create_release
@@ -45,4 +46,4 @@ jobs:
         with:
           draft: true
           prerelease: false
-          artifacts: "program/program*"
+          artifacts: "my-artifact/program*"
