@@ -6,8 +6,8 @@ on:
       - "v*"
 
 jobs:
-  build:
-    name: Build
+  release:
+    name: Build and Create Release
     runs-on: ubuntu-latest
 
     steps:
@@ -17,11 +17,6 @@ jobs:
       - name: Build
         run: make
 
-  create_release:
-    name: Build and Create Release
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Create Release
         id: create_release
         uses: ncipollo/release-action@v1.13.0
@@ -33,11 +28,6 @@ jobs:
           draft: true
           prerelease: false
 
-  upload:
-    name: Upload artefacts
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
