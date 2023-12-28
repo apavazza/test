@@ -45,4 +45,4 @@ jobs:
         with:
           draft: true
           prerelease: false
-          artifacts: "program"
+          artifacts: "program*"
