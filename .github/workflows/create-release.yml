@@ -44,6 +44,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          name: Release ${{ github.ref_name }}
+          tag: ${{ github.ref_name }}
           draft: true
           prerelease: false
-          artifacts: "program*"
+          artifacts: program*
