@@ -16,9 +16,6 @@ jobs:
 
       - name: Build
         run: make
-
-      - name: Rename
-        run: mv program program_linux_x64_${{ github.ref }}
         
   create_release:
     name: Create Release
