@@ -23,7 +23,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4.0.0
         with:
-          path: ./program_linux_x64*
+          path: ./program_linux_x64
         
   create_release:
     name: Create Release
@@ -34,6 +34,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4.1.0
         with:
+          name: program
           path: ./
     
       - name: Create Release
@@ -44,4 +45,4 @@ jobs:
         with:
           draft: true
           prerelease: false
-          artifacts: "program*"
+          artifacts: "program/program*"
